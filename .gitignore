@@ -1,0 +1,9 @@
+
+.vscode/settings.json
+
+# .gitignore 
+ 
+# ignore all files in lib/
+build/*
+# except for .gitkeep
+!.gitkeep
