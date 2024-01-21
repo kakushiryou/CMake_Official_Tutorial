@@ -1,0 +1,3 @@
+#define PROJECT_VERSION_MAJOR ${CMake_Official_Tutorial_VERSION_MAJOR}
+#define PROJECT_VERSION_MINOR @CMake_Official_Tutorial_VERSION_MINOR@
+#define PROJECT_STR "${STR_TEST}"

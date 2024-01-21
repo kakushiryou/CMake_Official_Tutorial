@@ -7,3 +7,4 @@
 build/*
 # except for .gitkeep
 !.gitkeep
+!TutorialConfig.h

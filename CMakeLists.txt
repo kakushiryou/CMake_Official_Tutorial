@@ -1,28 +1,30 @@
-# TODO 1: Set the minimum required version of CMake to be 3.20
-cmake_minimum_required(VERSION 3.20)
+# 设置 CMake 最小版本号:
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
-# TODO 2: Create a project named CMake_Official_Tutorial
-project("CMake Official Tutorial")
+# 创建一个工程，并设置版本号:
+project(CMake_Official_Tutorial VERSION 1.3)
 
-# TODO 7: Set the project version number as 1.0 in the above project command
-
-# TODO 6: Set the variable CMAKE_CXX_STANDARD to 11
-#		  and the variable CMAKE_CXX_STANDARD_REQUIRED to True
-# MSVC 中就算将 C++ 版本设置成 98 代码也能跑，就很奇怪……
-set(CMAKE_CXX_STANDARD 20)
+# 设置 CXX 版本号:
+set(CMAKE_CXX_STANDARD 20)				# MSVC 中就算将 C++ 版本设置成 98 代码也能跑，就很奇怪……
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-# 通过以下设置，可以打印版本号了，但是不是很准确:
+# 通过以下设置，可以在 MSVC 中打印版本号了，但是不是很准确:
 # 参考：https://blog.csdn.net/iceboy314159/article/details/101038217
 if(MSVC)
 	string(APPEND CMAKE_CXX_FLAGS " /Zc:__cplusplus")	# 注意字符串第一个空格，否则不起作用！
 endif()
 
+# 传递有空格的字符串：
+set(STR_TEST "Hello World from CMakeLists.txt!")		# 必须在 configure_file 的前面才起作用！
 
-# TODO 8: Use configure_file to configure and copy TutorialConfig.h.in to
-#         TutorialConfig.h
+# 将 .h.in 的内容拷贝到 .h 中:
+configure_file(TutorialConfig.h.in TutorialConfig.h)	# 注意头文件生成的地方！
 
-# TODO 3: Add an executable called Tutorial to the project
-# Hint: Be sure to specify the source file as tutorial.cxx
-add_executable(First_Tutorial tutorial.cxx)
 
-# TODO 9: Use target_include_directories to include ${PROJECT_BINARY_DIR}
+add_executable(First_Tutorial tutorial.cxx)				# 生成可执行文件	
+
+
+message(STATUS "The PROJECT_BINARY_DIR is: ${PROJECT_BINARY_DIR}")
+target_include_directories(First_Tutorial PUBLIC ${PROJECT_BINARY_DIR})	# 设置可执行文件的头文件搜索路径为 ./build 
+
+message(STATUS "${CMake_Official_Tutorial_VERSION_MAJOR}")				# 注意是项目的版本号而不是可执行文件的
+message(STATUS "${CMake_Official_Tutorial_VERSION_MINOR}")
